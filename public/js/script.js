@@ -132,3 +132,35 @@ if (canvas && context && !reducedMotion) {
 
     window.addEventListener("resize", resizeCanvas);
 }
+
+
+
+/* 3. Mobile navigation */
+
+const menuToggle = document.querySelector("#menu-toggle");
+const navigation = document.querySelector("#navigation");
+
+if (menuToggle && navigation) {
+
+    // Открытие и закрытие меню
+    menuToggle.addEventListener("click", () => {
+        const isOpen = navigation.classList.toggle("active");
+
+        menuToggle.setAttribute("aria-expanded", isOpen);
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Закрыть меню" : "Открыть меню"
+        );
+    });
+
+    // Закрытие меню после выбора раздела
+    navigation.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            navigation.classList.remove("active");
+
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Открыть меню");
+        });
+    });
+
+}
