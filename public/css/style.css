@@ -236,3 +236,224 @@ a {
         animation: none;
     }
 }
+
+
+
+/* =================================
+   7. ОБЩИЕ СТИЛИ СЕКЦИЙ
+================================= */
+
+.section {
+    padding: 110px 0;
+    border-top: 1px solid var(--border);
+}
+
+.section h2 {
+    font-family: monospace;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--accent);
+    margin-bottom: 35px;
+}
+
+.section h2::before {
+    content: "> ";
+    color: var(--secondary);
+}
+
+.section p {
+    color: var(--secondary);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+
+
+/* =================================
+   8. ABOUT
+================================= */
+
+.about .container {
+    max-width: 900px;
+}
+
+.about p {
+    max-width: 750px;
+    font-size: 18px;
+}
+
+.about p::before {
+    content: "danilin@dev:~$ ";
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 14px;
+}
+
+
+
+
+/* =================================
+   9. SKILLS
+================================= */
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.skills-list span {
+    padding: 15px 22px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.skills-list span:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(217, 130, 43, 0.15);
+    transform: translateY(-4px);
+}
+
+
+
+
+
+/* =================================
+   10. PROJECTS
+================================= */
+
+.project-card {
+    max-width: 650px;
+    padding: 30px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(217, 130, 43, 0.08);
+}
+
+.project-card h3 {
+    color: var(--text);
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.project-card p {
+    margin-bottom: 20px;
+}
+
+.project-card span {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 13px;
+}
+
+
+
+
+
+/* =================================
+   11. BLOG
+================================= */
+
+.blog p {
+    display: inline-block;
+    padding: 20px 25px;
+    background-color: var(--surface);
+    border-left: 2px solid var(--accent);
+    font-family: monospace;
+    color: var(--secondary);
+}
+
+
+
+
+/* =================================
+   12. CONTACT
+================================= */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 600px;
+    margin-top: 30px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 17px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    outline: none;
+    color: var(--text);
+    font-family: monospace;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--secondary);
+}
+
+.contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-form button {
+    align-self: flex-start;
+    padding: 15px 25px;
+    background-color: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: var(--accent);
+    color: var(--background);
+    box-shadow: 0 0 20px rgba(217, 130, 43, 0.2);
+}
+
+
+
+
+/* =================================
+   13. FOOTER
+================================= */
+
+.footer {
+    padding: 35px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.footer p {
+    color: var(--secondary);
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 2;
+}
