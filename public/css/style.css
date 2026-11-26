@@ -273,10 +273,6 @@ a {
    8. ABOUT
 ================================= */
 
-.about .container {
-    max-width: 900px;
-}
-
 .about p {
     max-width: 750px;
     font-size: 18px;
