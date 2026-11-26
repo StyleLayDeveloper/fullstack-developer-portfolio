@@ -457,3 +457,139 @@ a {
     font-size: 12px;
     line-height: 2;
 }
+
+
+
+/* 14. Адаптация под планшеты */
+@media (max-width: 768px) {
+
+    /* Шапка */
+    .header .container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 0;
+    }
+
+    .navigation {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 20px;
+    }
+
+    /* Главный экран */
+    .hero {
+        min-height: 80vh;
+        padding: 60px 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(48px, 10vw, 80px);
+    }
+
+    .terminal {
+        width: 100%;
+        max-width: 550px;
+    }
+
+    /* Секции */
+    .section {
+        padding: 80px 0;
+    }
+
+    .skills-list {
+        gap: 12px;
+    }
+
+    .skills-list span {
+        padding: 12px 16px;
+    }
+}
+
+
+/* 15. Адаптация под телефоны */
+@media (max-width: 480px) {
+
+    .container {
+        width: 92%;
+    }
+
+    /* Навигация */
+    .navigation {
+        gap: 12px 15px;
+    }
+
+    .navigation a {
+        font-size: 12px;
+    }
+
+    /* Главный экран */
+    .hero {
+        min-height: 75vh;
+        padding: 50px 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 11vw, 55px);
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .terminal-header {
+        font-size: 12px;
+    }
+
+    .terminal-body {
+        font-size: 12px;
+        min-height: 110px;
+    }
+
+    /* Секции */
+    .section {
+        padding: 65px 0;
+    }
+
+    .section h2 {
+        font-size: 27px;
+        margin-bottom: 25px;
+    }
+
+    .section p {
+        font-size: 14px;
+    }
+
+    /* Навыки */
+    .skills-list span {
+        font-size: 12px;
+        padding: 10px 13px;
+    }
+
+    /* Проекты */
+    .project-card {
+        padding: 20px;
+    }
+
+    .project-card h3 {
+        font-size: 20px;
+    }
+
+    /* Форма */
+    .contact-form input,
+    .contact-form textarea {
+        padding: 14px;
+        font-size: 13px;
+    }
+
+    .contact-form button {
+        width: 100%;
+        padding: 15px;
+    }
+}
