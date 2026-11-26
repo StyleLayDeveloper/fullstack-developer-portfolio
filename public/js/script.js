@@ -164,3 +164,59 @@ if (menuToggle && navigation) {
     });
 
 }
+
+
+
+// Находим контактную форму и элемент для отображения статуса
+const contactForm = document.querySelector("#contact-form");
+const formStatus = document.querySelector("#form-status");
+
+// Проверяем, что форма существует
+if (contactForm && formStatus) {
+
+    contactForm.addEventListener("submit", async (event) => {
+        // Отменяем стандартную отправку формы
+        event.preventDefault();
+
+        // Получаем данные из полей формы
+        const formData = new FormData(contactForm);
+
+        const messageData = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            message: formData.get("message")
+        };
+
+        // Показываем сообщение об отправке
+        formStatus.textContent = "Sending message...";
+
+        try {
+            // Отправляем данные на Express-сервер
+            const response = await fetch("/api/messages", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(messageData)
+            });
+
+            const responseText = await response.text();
+            const result = responseText ? JSON.parse(responseText) : {};
+
+            // Проверяем результат отправки
+            if (!response.ok) {
+                throw new Error(result.error || "Something went wrong");
+            }
+
+            // Показываем успешный результат
+            formStatus.textContent = result.message;
+
+            // Очищаем форму
+            contactForm.reset();
+
+        } catch (error) {
+            // Показываем ошибку
+            formStatus.textContent = error.message;
+        }
+    });
+}

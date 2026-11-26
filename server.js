@@ -1,20 +1,30 @@
 
-/* 1. Подключаем Express */
+/* 1. Подключаем библиотеки */
 const express = require("express");
-
-/* 2. Подключаем встроенный модуль Path */
 const path = require("path");
 
-/* 3. Создаём приложение */
-const app = express();
+/* 2. Подключаем базу данных */
+const db = require("./src/database/database");
 
-/* 4. Определяем порт сервера */
+/* 3. Подключаем маршруты */
+const messageRoutes = require("./src/routes/messageRoutes");
+
+/* 4. Создаём приложение */
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-/* 5. Подключаем статические файлы */
+/* 5. Настраиваем обработку запросов */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/* 6. Подключаем статические файлы */
 app.use(express.static(path.join(__dirname, "public")));
 
-/* 6. Запускаем сервер */
+/* 7. Подключаем API */
+app.use("/api/messages", messageRoutes);
+
+/* 8. Запускаем сервер */
 app.listen(PORT, () => {
+    console.log("Database is ready:", !!db);
     console.log(`Server is running at http://localhost:${PORT}`);
 });
