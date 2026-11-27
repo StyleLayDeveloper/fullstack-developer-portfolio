@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | DANILIN.DEV</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <main class="admin-container">
+
+        <!-- Форма авторизации -->
+        <section class="admin-login" id="admin-login">
+
+            <h1>DANILIN.DEV</h1>
+            <p class="admin-subtitle">Administrator Access</p>
+
+            <form id="login-form">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                >
+
+                <button type="submit">$ login</button>
+
+                <p id="login-status" aria-live="polite"></p>
+            </form>
+
+        </section>
+
+        <!-- Панель администратора -->
+        <section class="admin-dashboard" id="admin-dashboard" hidden>
+
+            <header class="admin-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome, administrator.</p>
+                </div>
+
+                <button id="logout-button" type="button">
+                    $ logout
+                </button>
+            </header>
+
+            <section class="admin-messages">
+                <h2>Contact Messages</h2>
+
+                <div id="messages-list">
+                    <!-- Сообщения будут загружаться через JavaScript -->
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="js/admin.js"></script>
+
+</body>
+</html>

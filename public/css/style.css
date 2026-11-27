@@ -654,3 +654,188 @@ a {
         font-size: 14px;
     }
 }
+
+
+
+/* ================================
+   ADMIN PANEL
+================================ */
+
+.admin-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Login */
+
+.admin-login {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    background: #111111;
+    border: 1px solid #29231D;
+}
+
+.admin-login h1 {
+    color: #D9822B;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.admin-subtitle {
+    color: #77716A;
+    margin-bottom: 35px;
+    font-size: 14px;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 14px;
+    background: #080808;
+    border: 1px solid #29231D;
+    color: #F2EEE7;
+    outline: none;
+}
+
+#login-form input:focus {
+    border-color: #D9822B;
+}
+
+#login-form button,
+#logout-button {
+    padding: 14px;
+    background: #D9822B;
+    color: #080808;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#login-form button:hover,
+#logout-button:hover {
+    background: #F2EEE7;
+}
+
+#login-status {
+    color: #D9822B;
+    font-size: 13px;
+}
+
+/* Dashboard */
+
+.admin-dashboard {
+    width: 100%;
+    max-width: 1100px;
+    align-self: flex-start;
+    margin: 40px auto;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #29231D;
+}
+
+.admin-header h1 {
+    color: #D9822B;
+    margin-bottom: 8px;
+}
+
+.admin-header p {
+    color: #77716A;
+}
+
+#logout-button {
+    padding: 12px 22px;
+}
+
+.admin-messages {
+    margin-top: 40px;
+}
+
+.admin-messages h2 {
+    color: #F2EEE7;
+    margin-bottom: 25px;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+    .admin-container {
+        padding: 20px 15px;
+    }
+
+    .admin-login {
+        padding: 25px 20px;
+    }
+
+    .admin-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+
+
+/* =================================
+   ADMIN MESSAGE CARDS
+================================= */
+
+#messages-list {
+    display: grid;
+    gap: 20px;
+}
+
+#messages-list article {
+    padding: 25px;
+    background: #111111;
+    border: 1px solid #29231D;
+    border-left: 3px solid #D9822B;
+}
+
+#messages-list article h3 {
+    color: #D9822B;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#messages-list article p {
+    color: #F2EEE7;
+    margin-bottom: 8px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#messages-list article small {
+    display: block;
+    color: #77716A;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.delete-button {
+    margin-top: 18px;
+    padding: 9px 16px;
+    background: transparent;
+    color: #D9822B;
+    border: 1px solid #D9822B;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.delete-button:hover {
+    background: #D9822B;
+    color: #080808;
+}

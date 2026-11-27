@@ -1,16 +1,30 @@
+require("dotenv").config();
 
 /* 1. Подключаем библиотеки */
 const express = require("express");
 const path = require("path");
+const session = require("express-session");
 
 /* 2. Подключаем базу данных */
 const db = require("./src/database/database");
 
 /* 3. Подключаем маршруты */
 const messageRoutes = require("./src/routes/messageRoutes");
+const authRoutes = require("./src/routes/authRoutes");
 
 /* 4. Создаём приложение */
 const app = express();
+// Настройка пользовательских сессий
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        maxAge: 1000 * 60 * 60
+    }
+}));
 const PORT = process.env.PORT || 3000;
 
 /* 5. Настраиваем обработку запросов */
@@ -22,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 /* 7. Подключаем API */
 app.use("/api/messages", messageRoutes);
+app.use("/api/auth", authRoutes);
 
 /* 8. Запускаем сервер */
 app.listen(PORT, () => {
