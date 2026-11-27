@@ -1,12 +1,30 @@
 
 const db = require("../database/database");
 
+
 // Сохранение нового сообщения
 function createMessage(req, res) {
     const { name, email, message } = req.body;
 
-    // Проверяем обязательные поля
-    if (!name || !email || !message) {
+    // Проверяем тип данных
+    if (
+        typeof name !== "string" ||
+        typeof email !== "string" ||
+        typeof message !== "string"
+    ) {
+        return res.status(400).json({
+            success: false,
+            error: "Некорректные данные"
+        });
+    }
+
+    // Удаляем лишние пробелы по краям
+    const cleanName = name.trim();
+    const cleanEmail = email.trim();
+    const cleanMessage = message.trim();
+
+    // Проверяем, что поля не пустые
+    if (!cleanName || !cleanEmail || !cleanMessage) {
         return res.status(400).json({
             success: false,
             error: "Все поля обязательны для заполнения"
@@ -19,13 +37,14 @@ function createMessage(req, res) {
         VALUES (?, ?, ?)
     `);
 
-    statement.run(name.trim(), email.trim(), message.trim());
+    statement.run(cleanName, cleanEmail, cleanMessage);
 
     res.status(201).json({
         success: true,
         message: "Сообщение успешно отправлено!"
     });
 }
+
 // Получение всех сообщений из базы данных
 function getMessages(req, res) {
     const messages = db.prepare(`

@@ -1,6 +1,7 @@
 
 const bcrypt = require("bcrypt");
 
+
 // Проверка логина и пароля администратора
 async function login(req, res) {
     const { username, password } = req.body;
@@ -26,14 +27,35 @@ async function login(req, res) {
         });
     }
 
-    // Создаём сессию администратора
-    req.session.isAdmin = true;
+    // Создаём новую сессию после авторизации
+    req.session.regenerate((error) => {
+        if (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Не удалось создать сессию"
+            });
+        }
 
-    res.json({
-        success: true,
-        message: "Авторизация успешна"
+        // Назначаем права администратора
+        req.session.isAdmin = true;
+
+        // Сохраняем сессию
+        req.session.save((error) => {
+            if (error) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Не удалось сохранить сессию"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "Авторизация успешна"
+            });
+        });
     });
 }
+
 
 // Проверка статуса авторизации
 function checkAuth(req, res) {

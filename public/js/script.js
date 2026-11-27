@@ -199,7 +199,7 @@ if (contactForm && formStatus) {
                 },
                 body: JSON.stringify(messageData)
             });
-
+            
             const responseText = await response.text();
             const result = responseText ? JSON.parse(responseText) : {};
 
@@ -220,3 +220,4 @@ if (contactForm && formStatus) {
         }
     });
 }
+

@@ -15,13 +15,19 @@ const authRoutes = require("./src/routes/authRoutes");
 /* 4. Создаём приложение */
 const app = express();
 // Настройка пользовательских сессий
+
+if (process.env.NODE_ENV === "production") {
+    app.set("trust proxy", 1);
+}
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
         maxAge: 1000 * 60 * 60
     }
 }));
