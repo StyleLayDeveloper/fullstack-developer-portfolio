@@ -59,6 +59,11 @@ typeTerminal();
    2. ПАДАЮЩИЙ КОД
 ================================= */
 
+
+/* =================================
+   2. ПАДАЮЩИЙ КОД
+================================= */
+
 const canvas = document.querySelector("#code-rain");
 const context = canvas?.getContext("2d");
 
@@ -67,8 +72,15 @@ if (canvas && context && !reducedMotion) {
     const symbols = "01アイウエオカキクケコ{}[]<>/";
     const fontSize = 16;
 
+    // Проверяем, на какой странице находимся
+    const isAdminPage = document.querySelector(".admin-container") !== null;
+
     let columns = 0;
     let drops = [];
+
+    // Настройки анимации
+    const columnSpacing = isAdminPage ? 20 : fontSize;
+    const speed = isAdminPage ? 0.27 : 0.35;
 
     function resizeCanvas() {
         const rect = canvas.getBoundingClientRect();
@@ -82,7 +94,7 @@ if (canvas && context && !reducedMotion) {
             pixelRatio, 0, 0
         );
 
-        columns = Math.ceil(rect.width / fontSize);
+        columns = Math.ceil(rect.width / columnSpacing);
 
         drops = Array.from(
             { length: columns },
@@ -106,20 +118,24 @@ if (canvas && context && !reducedMotion) {
                 Math.floor(Math.random() * symbols.length)
             ];
 
-            context.globalAlpha = Math.random() * 0.7 + 0.3;
+            context.globalAlpha = isAdminPage
+                ? Math.random() * 0.4 + 0.25
+                : Math.random() * 0.7 + 0.3;
 
             context.fillText(
                 symbol,
-                i * fontSize,
+                i * columnSpacing,
                 drops[i] * fontSize
             );
 
-            if (drops[i] * fontSize > height &&
-                Math.random() > 0.975) {
+            if (
+                drops[i] * fontSize > height &&
+                Math.random() > 0.975
+            ) {
                 drops[i] = 0;
             }
 
-            drops[i] += 0.35;
+            drops[i] += speed;
         }
 
         context.globalAlpha = 1;
@@ -133,91 +149,88 @@ if (canvas && context && !reducedMotion) {
     window.addEventListener("resize", resizeCanvas);
 }
 
+    /* 3. Mobile navigation */
 
+    const menuToggle = document.querySelector("#menu-toggle");
+    const navigation = document.querySelector("#navigation");
 
-/* 3. Mobile navigation */
+    if (menuToggle && navigation) {
 
-const menuToggle = document.querySelector("#menu-toggle");
-const navigation = document.querySelector("#navigation");
+        // Открытие и закрытие меню
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navigation.classList.toggle("active");
 
-if (menuToggle && navigation) {
-
-    // Открытие и закрытие меню
-    menuToggle.addEventListener("click", () => {
-        const isOpen = navigation.classList.toggle("active");
-
-        menuToggle.setAttribute("aria-expanded", isOpen);
-        menuToggle.setAttribute(
-            "aria-label",
-            isOpen ? "Закрыть меню" : "Открыть меню"
-        );
-    });
-
-    // Закрытие меню после выбора раздела
-    navigation.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => {
-            navigation.classList.remove("active");
-
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.setAttribute("aria-label", "Открыть меню");
+            menuToggle.setAttribute("aria-expanded", isOpen);
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Закрыть меню" : "Открыть меню"
+            );
         });
-    });
 
-}
+        // Закрытие меню после выбора раздела
+        navigation.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                navigation.classList.remove("active");
 
-
-
-// Находим контактную форму и элемент для отображения статуса
-const contactForm = document.querySelector("#contact-form");
-const formStatus = document.querySelector("#form-status");
-
-// Проверяем, что форма существует
-if (contactForm && formStatus) {
-
-    contactForm.addEventListener("submit", async (event) => {
-        // Отменяем стандартную отправку формы
-        event.preventDefault();
-
-        // Получаем данные из полей формы
-        const formData = new FormData(contactForm);
-
-        const messageData = {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            message: formData.get("message")
-        };
-
-        // Показываем сообщение об отправке
-        formStatus.textContent = "Sending message...";
-
-        try {
-            // Отправляем данные на Express-сервер
-            const response = await fetch("/api/messages", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(messageData)
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Открыть меню");
             });
-            
-            const responseText = await response.text();
-            const result = responseText ? JSON.parse(responseText) : {};
+        });
 
-            // Проверяем результат отправки
-            if (!response.ok) {
-                throw new Error(result.error || "Something went wrong");
+    }
+
+
+
+    // Находим контактную форму и элемент для отображения статуса
+    const contactForm = document.querySelector("#contact-form");
+    const formStatus = document.querySelector("#form-status");
+
+    // Проверяем, что форма существует
+    if (contactForm && formStatus) {
+
+        contactForm.addEventListener("submit", async (event) => {
+            // Отменяем стандартную отправку формы
+            event.preventDefault();
+
+            // Получаем данные из полей формы
+            const formData = new FormData(contactForm);
+
+            const messageData = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                message: formData.get("message")
+            };
+
+            // Показываем сообщение об отправке
+            formStatus.textContent = "Sending message...";
+
+            try {
+                // Отправляем данные на Express-сервер
+                const response = await fetch("/api/messages", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(messageData)
+                });
+
+                const responseText = await response.text();
+                const result = responseText ? JSON.parse(responseText) : {};
+
+                // Проверяем результат отправки
+                if (!response.ok) {
+                    throw new Error(result.error || "Something went wrong");
+                }
+
+                // Показываем успешный результат
+                formStatus.textContent = result.message;
+
+                // Очищаем форму
+                contactForm.reset();
+
+            } catch (error) {
+                // Показываем ошибку
+                formStatus.textContent = error.message;
             }
-
-            // Показываем успешный результат
-            formStatus.textContent = result.message;
-
-            // Очищаем форму
-            contactForm.reset();
-
-        } catch (error) {
-            // Показываем ошибку
-            formStatus.textContent = error.message;
-        }
-    });
-}
-
+        });
+    }
