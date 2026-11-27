@@ -59,28 +59,40 @@ function getMessages(req, res) {
     });
 }
 
-// Удаление сообщения по ID
+
+ // Удаление сообщения по ID
 function deleteMessage(req, res) {
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
-    const result = db.prepare(`
-        DELETE FROM messages
-        WHERE id = ?
-    `).run(id);
+        const result = db.prepare(`
+            DELETE FROM messages
+            WHERE id = ?
+        `).run(id);
 
-    if (result.changes === 0) {
-        return res.status(404).json({
+        if (result.changes === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Сообщение не найдено"
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "Сообщение успешно удалено"
+        });
+
+    } catch (error) {
+        console.error("Ошибка при удалении сообщения:", error);
+
+        res.status(500).json({
             success: false,
-            message: "Сообщение не найдено"
+            message: "Не удалось удалить сообщение"
         });
     }
-
-    res.json({
-        success: true,
-        message: "Сообщение успешно удалено"
-    });
 }
 
+// Экспортируем функции контроллера
 module.exports = {
     createMessage,
     getMessages,
